@@ -60,7 +60,13 @@ include("functions/functions.php");
 		</div>
 		
 		
-		<div id="content_area">This is content area</div>
+		<div id="content_area">
+			<div id="products_box">
+			<?php getPro();?>
+			
+			</div>
+		
+		</div>
 	</div>
 	<div id="footer">
 	<h2 style="text-align:center;padding-top:30px;">&copy; 2017 for Database Programing Final Project</h2>
