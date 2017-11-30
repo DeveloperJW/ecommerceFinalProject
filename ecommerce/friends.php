@@ -1,8 +1,11 @@
 <!DOCTYPE>
 <?php 
-session_start();
+//to keep the quantity box showing quantity number
+session_start(); 
+
 include("functions/functions.php");
 
+include("includes/db.php");
 ?>
 <html>
 	<head>
@@ -31,8 +34,8 @@ include("functions/functions.php");
 				<li><a href="index.php">Home</a></li>
 				<li><a href="all_products.php">All Products</a></li>
 				<li><a href="my_account.php">My Account</a></li>
-				<li><a href="#">Sign Up</a></li>
-				<li><a href="cart.php">Shopping Cart</a></li>
+				<li><a href="customer_register.php">Sign Up</a></li>
+				<li><a href="cart.php">Shopping Carts</a></li>
 				<li><a href="wish.php">Wish List</a></li>
 				<li><a href="friends.php">Find Friends</a></li>
 				<li><a href="#">Contact Us</a></li>
@@ -76,68 +79,58 @@ include("functions/functions.php");
 		
 			<div id="content_area">
 			
+			<?php cart(); ?>
+			
 			<div id="shopping_cart"> 
 					
-					<span style="float:right; font-size:18px; padding:5px; line-height:40px;">
+					<span style="float:right; font-size:17px; padding:5px; line-height:40px;">
+					
 					<?php 
 					if(isset($_SESSION['customer_email'])){
-					echo "<b>Welcome:</b>" . $_SESSION['customer_email'] ;
-						}
-					else{
-					echo"<b>Welcome Guest:</b>";
+					echo "<b>Welcome:</b>" . $_SESSION['customer_email'] . "<b style='color:yellow;'>Your</b>" ;
 					}
-		?>
-					<b style="color:yellow">Shopping Cart -</b> 
-					Total Items: <?php total_items()?> 
-					Total Price: <?php total_price()?>
-					<a href="cart.php" style="color:yellow">Go to Cart</a>
+					else {
+					echo "<b>Welcome Guest:</b>";
+					}
+					?>
+					
+					<a href="index.php" style="color:yellow">Back to Shop</a>
+					
+					<?php 
+					if(!isset($_SESSION['customer_email'])){
+					
+					echo "<a href='checkout.php' style='color:orange;'>Login</a>";
+					
+					}
+					else {
+					echo "<a href='logout.php' style='color:orange;'>Logout</a>";
+					}
 					
 					
+					
+					?>
 					
 					</span>
 			</div>
 			
 				<div id="products_box">
-	<?php 
-	//add search if statement 
-	if(isset($_GET['search'])){
-	
-	$search_query=$_GET['user_query'];
-	//search using product_keywords
-	$get_pro = "select * from products where product_keywords like '%$search_query%'";
+				
+			<form action="wish.php" method="post" enctype="multipart/form-data">
+			
+			<table align="center" width="700px" border="2" bgcolor="orange">
+		<tr align="center">
+			<td colspan="7"><h2>Search your friends' wish lists here</h2></td>
+		</tr>
+		<tr>
+			<td align="right">Enter the email address of your friend:</td>
+			<td><input type="text" name="user_query" size="50" required/></td>
+		</tr>
+		<tr align="center">
+		<td colspan="2"><input type="submit" name="search" value="Search"/></td>
+		</tr>
+			
+			</form>
 
-	$run_pro = mysqli_query($con, $get_pro); 
-	
-	while($row_pro=mysqli_fetch_array($run_pro)){
-	
-		$pro_id = $row_pro['product_id'];
-		$pro_cat = $row_pro['product_cat'];
-		$pro_brand = $row_pro['product_brand'];
-		$pro_title = $row_pro['product_title'];
-		$pro_price = $row_pro['product_price'];
-		$pro_image = $row_pro['product_image'];
-	
-		echo "
-				<div id='single_product'>
-				
-					<h3>$pro_title</h3>
-					
-					<img src='admin_area/product_images/$pro_image' width='180' height='180' />
-					
-					<p><b> $ $pro_price </b></p>
-					
-					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
-					
-					<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
-				
-				</div>
-		
-		
-		";
-	
-	}
-	}
-	?>
 				
 				</div>
 			
@@ -146,12 +139,6 @@ include("functions/functions.php");
 		<!--Content wrapper ends-->
 		
 		
-		
-		<div id="footer">
-		
-		<h2 style="text-align:center; padding-top:30px;">&copy; 2017 for Database Programing Final Project</h2>
-		
-		</div>
 	
 	
 	

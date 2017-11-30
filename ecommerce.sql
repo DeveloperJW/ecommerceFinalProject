@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2017 at 06:28 AM
+-- Generation Time: Nov 30, 2017 at 11:46 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -144,6 +144,27 @@ INSERT INTO `products` (`product_id`, `product_cat`, `product_brand`, `product_t
 (6, 3, 1, 'Apple Iphone 8', 699, '<p><span style=\"color: #222222; font-family: Roboto, arial, sans-serif; font-size: 13px;\">Silver &middot; 64 GB &middot; Unlocked â€‘ SIM Free</span></p>', 'apple_iphone_8.jpg', 'apple, cellphones, new'),
 (7, 3, 1, 'Apple Iphone X', 1149, '<p><span style=\"color: #222222; font-family: Roboto, arial, sans-serif; font-size: 13px; background-color: #fcfcfc;\">Space Gray &middot; 256 GB &middot; AT&amp;T â€‘ GSM</span></p>', 'apple-iphone-x-new-1.jpg', 'apple, cellphones, new, iphone');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wish`
+--
+
+CREATE TABLE `wish` (
+  `p_id` int(100) NOT NULL,
+  `ip_add` varchar(255) NOT NULL,
+  `qty` int(10) NOT NULL,
+  `customer_email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `wish`
+--
+
+INSERT INTO `wish` (`p_id`, `ip_add`, `qty`, `customer_email`) VALUES
+(6, '::1', 0, ''),
+(7, '::1', 0, '');
+
 --
 -- Indexes for dumped tables
 --
@@ -185,7 +206,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `products`
 --

@@ -60,6 +60,7 @@ include("functions/functions.php");
 		
 		<div id="content_area">
 		<?php cart();?>
+		<?php wish();?>
 		<div id="shopping_cart">
 			<span style="float:right;font-size:17px; padding: 5px; line-height:40px;">
 		<?php 
@@ -86,8 +87,7 @@ include("functions/functions.php");
 		<a href="cart.php" style="color:yellow">Go to Cart</a>
 			
 			</span>
-		</div>
-		<!--Ip address, need to rethink and decide if this feature is necessary-->
+		</div><!--end of shopping cart bar-->
 		
 			<div id="products_box">
 			<?php getPro();?>

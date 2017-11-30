@@ -19,6 +19,44 @@ if (mysqli_connect_errno())
  
     return $ip;
 }
+
+//getting the friend's Ip address (used to locate friend's wish list)
+function get_friend_Ip(){
+	$friend_Ip="::1";
+	if(isset($_GET['search'])){
+	$search_query=$_GET['user_query'];
+	//search using friend's email
+	$friend_Ip="select customer_ip from customers where customer_email='$search_query'";
+	}
+	return $friend_Ip;
+	}
+	
+//creating the wish list cart
+  function wish(){
+	if(isset($_GET['add_wish'])){
+	global $con;
+	$ip=getIp();
+	$pro_id=$_GET['add_wish'];
+	$check_pro = "select * from wish where ip_add='$ip' AND p_id='$pro_id'";
+	$run_check=mysqli_query($con,$check_pro);
+	if(mysqli_num_rows($run_check)>0){
+
+	echo "";
+	
+	}
+	else {
+	
+	$insert_pro = "insert into wish (p_id,ip_add) values ('$pro_id','$ip')";
+	
+	$run_pro = mysqli_query($con, $insert_pro); 
+	
+	echo "<script>window.open('index.php','_self')</script>";
+		}
+	
+	}
+}
+	
+	
 //creaing the shopping cart
   function cart(){
 	if(isset($_GET['add_cart'])){
@@ -162,6 +200,8 @@ function getPro(){
 					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 					
 					<a href='index.php?add_cart=$pro_id'><button style='float:right'>Add to Cart</button></a>
+					<br>
+					<a href='index.php?add_wish=$pro_id'><button style='float:right'>Add to Wish List</button></a>
 				
 				</div>
 		
@@ -214,6 +254,8 @@ function getPro(){
 					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 					
 					<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
+					<br>
+					<a href='index.php?add_wish=$pro_id'><button style='float:right'>Add to Wish List</button></a>
 				
 				</div>
 		
@@ -268,6 +310,8 @@ function getBrandPro(){
 					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 					
 					<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
+					<br>
+					<a href='index.php?add_wish=$pro_id'><button style='float:right'>Add to Wish List</button></a>
 				
 				</div>
 		

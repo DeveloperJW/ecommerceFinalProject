@@ -20,7 +20,7 @@ include("functions/functions.php");
 		<!--Header starts here-->
 		<div class="header_wrapper">
 		
-			<img id="logo" src="images/logo.gif" /> 
+			<img id="logo" src="images/logo.png" /> 
 		</div>
 		<!--Header ends here-->
 		
@@ -119,6 +119,7 @@ include("functions/functions.php");
 					<a href='index.php' style='float:left;'>Go Back</a>
 					
 					<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
+					<a href='wish.php?pro_id=$pro_id'><button style='float:right'>Add to Wish List</button></a>
 				
 				</div>
 		
