@@ -19,6 +19,14 @@ include("functions/functions.php");
 	<div class="header_wrapper">
 	<!--click the logo top left corner and direct to homepage-->
 	<a href="index.php"><img id="logo" src="images/logo.png"/></a>
+		
+		<div id="form">
+			<form method="get" action="results.php" enctype="mutlpart/form-data">
+				<input type="text" name="user_query" placeholder="Search for a Product"/>
+				<input type="submit" name="search" value="Search"/>
+			</form>
+		
+		</div><!--end of form div-->
 	</div>
 	<!--Header ends here-->
 	<!--Navigation bar starts here-->
@@ -34,12 +42,6 @@ include("functions/functions.php");
 			<li><a href="#">Contact Us</a></li>
 		</ul>
 		
-		<div id="form">
-			<form method="get" action="results.php" enctype="mutlpart/form-data">
-				<input type="text" name="user_query" placeholder="Search for a Product"/>
-				<input type="submit" name="search" value="Search"/>
-			</form>
-		</div><!--end of form div-->
 		
 	</div><!--navigation bar ends-->
 	
@@ -81,10 +83,10 @@ include("functions/functions.php");
 			}
 		?>
 		
-		<b style="color:yellow">Shopping Cart -</b> 
+		<b style="color:black">Shopping Cart -</b> 
 		Total Items: <?php total_items()?> 
 		Total Price: <?php total_price()?>
-		<a href="cart.php" style="color:yellow">Go to Cart</a>
+		<a href="cart.php" style="color:orange">Go to Cart</a>
 			
 			</span>
 		</div><!--end of shopping cart bar-->

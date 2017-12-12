@@ -20,7 +20,14 @@ include("functions/functions.php");
 		<!--Header starts here-->
 		<div class="header_wrapper">
 		
-			<img id="logo" src="images/logo.png" /> 
+			<a href="index.php"><img id="logo" src="images/logo.png" /> </a>
+			<div id="form">
+				<form method="get" action="results.php" enctype="multipart/form-data">
+					<input type="text" name="user_query" placeholder="Search a Product"/ > 
+					<input type="submit" name="search" value="Search" />
+				</form>
+			
+			</div>
 		</div>
 		<!--Header ends here-->
 		
@@ -38,14 +45,6 @@ include("functions/functions.php");
 				<li><a href="#">Contact Us</a></li>
 			
 			</ul>
-			
-			<div id="form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" placeholder="Search a Product"/ > 
-					<input type="submit" name="search" value="Search" />
-				</form>
-			
-			</div>
 			
 		</div>
 		<!--Navigation Bar ends-->
@@ -80,7 +79,7 @@ include("functions/functions.php");
 					
 					<span style="float:right; font-size:18px; padding:5px; line-height:40px;">
 					
-					Welcome Guest! <b style="color:yellow">Shopping Cart -</b> Total Items: Total Price: <a href="cart.php" style="color:yellow">Go to Cart</a>
+					Welcome Guest! <b style="color:black">Shopping Cart -</b> Total Items: Total Price: <a href="cart.php" style="color:orange">Go to Cart</a>
 					
 					
 					

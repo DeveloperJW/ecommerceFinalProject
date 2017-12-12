@@ -24,6 +24,12 @@ include("includes/db.php");
 		<div class="header_wrapper">
 		
 			<a href="index.php"><img id="logo" src="images/logo.png" /> </a>
+			<div id="form">
+			<form method="get" action="results.php" enctype="mutlpart/form-data">
+				<input type="text" name="user_query" placeholder="Search for a Product"/>
+				<input type="submit" name="search" value="Search"/>
+			</form>
+		</div><!--end of form div-->
 		</div>
 		<!--Header ends here-->
 		
@@ -41,14 +47,6 @@ include("includes/db.php");
 				<li><a href="#">Contact Us</a></li>
 			
 			</ul>
-			
-			<div id="form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" placeholder="Search a Product"/ > 
-					<input type="submit" name="search" value="Search" />
-				</form>
-			
-			</div>
 			
 		</div>
 		<!--Navigation Bar ends-->
@@ -87,14 +85,14 @@ include("includes/db.php");
 					
 					<?php 
 					if(isset($_SESSION['customer_email'])){
-					echo "<b>Welcome:</b>" . $_SESSION['customer_email'] . "<b style='color:yellow;'>Your</b>" ;
+					echo "<b>Welcome:</b>" . $_SESSION['customer_email'];
 					}
 					else {
 					echo "<b>Welcome Guest:</b>";
 					}
 					?>
 					
-					<a href="index.php" style="color:yellow">Back to Shop</a>
+					<a href="index.php" style="color:orange">Back to Shop</a>
 					
 					<?php 
 					if(!isset($_SESSION['customer_email'])){

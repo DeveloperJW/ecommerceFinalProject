@@ -24,6 +24,13 @@ include("includes/db.php");
 		<div class="header_wrapper">
 		
 			<a href="index.php"><img id="logo" src="images/logo.png" /> </a>
+					<div id="form">
+				<form method="get" action="results.php" enctype="multipart/form-data">
+					<input type="text" name="user_query" placeholder="Search a Product"/ > 
+					<input type="submit" name="search" value="Search" />
+				</form>
+			
+			</div>
 		</div>
 		<!--Header ends here-->
 		
@@ -41,14 +48,7 @@ include("includes/db.php");
 				<li><a href="#">Contact Us</a></li>
 			
 			</ul>
-			
-			<div id="form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" placeholder="Search a Product"/ > 
-					<input type="submit" name="search" value="Search" />
-				</form>
-			
-			</div>
+		
 			
 		</div>
 		<!--Navigation Bar ends-->
@@ -94,7 +94,7 @@ include("includes/db.php");
 					}
 					?>
 					
-					<b style="color:yellow">Shopping Cart -</b> Total Items: <?php total_items();?> Total Price: <?php total_price(); ?> <a href="index.php" style="color:yellow">Back to Shop</a>
+					<b style="color:black">Shopping Cart -</b> Total Items: <?php total_items();?> Total Price: <?php total_price(); ?> <a href="index.php" style="color:orange">Back to Shop</a>
 					
 					<?php 
 					if(!isset($_SESSION['customer_email'])){
@@ -122,6 +122,7 @@ include("includes/db.php");
 					<tr align="center">
 						<th>Remove</th>
 						<th>Product(S)</th>
+						<th>Change Quantity</th>
 						<th>Quantity</th>
 						<th>Total Price</th>
 					</tr>
@@ -136,6 +137,7 @@ include("includes/db.php");
 		while($p_price=mysqli_fetch_array($run_price)){
 			$pro_id = $p_price['p_id']; 
 			$pro_price = "select * from products where product_id='$pro_id'";
+			$pro_qty=$p_price['qty'];
 			$run_pro_price = mysqli_query($con,$pro_price); 
 			while ($pp_price = mysqli_fetch_array($run_pro_price)){
 			$product_price = array($pp_price['product_price']);
@@ -152,32 +154,72 @@ include("includes/db.php");
 					<td><?php echo $product_title; ?><br>
 					<img src="admin_area/product_images/<?php echo $product_image;?>" width="60" height="60"/>
 					</td>
-					<td><input type="text" size="4" name="qty" value="<?php echo $_SESSION['qty'];?>"/></td>
+					<td>
+					<select name = "qty[]">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+					</td>
+
 					<?php 
-					if(isset($_POST['update_cart'])){
+					//if(isset($_POST['update_cart'])){
+						//foreach($_POST['qty'] as $quan){
+							//echo "eachQuantity";
+							//echo $quan;
+						//}
+						//$qty['$pro_id'] = $_POST['qty'];
+						//echo $qty['$pro_id'];
+						//$quantity = $qty['$pro_id'];
+						//echo $pro_id;
+						//$update_qty = "UPDATE `cart` SET `qty`= '$quantity' WHERE `p_id`= '$pro_id';";
+						//$run_qty = mysqli_query($con, $update_qty);
 						
-						$qty = $_POST['qty'];
 							
-						$update_qty = "update cart set qty='$qty'";
-							
-						$run_qty = mysqli_query($con, $update_qty); 
+						 
 						//keep the quantity in the quantity box, we need to use _session
-						$_SESSION['qty']=$qty;
-						$total = $total*$qty;
-						}
-						
+						//$_SESSION['qty']=$qty;
+						//$total = $total*$qty;
+						//}
+					}
 						
 					?>
-								
+					<td><?php echo $pro_qty;?></td>
 					<td><?php echo "$" . $single_price; ?></td>
 				</tr>
 					
 					
-				<?php } } ?>
-				
+				<?php }  ?>
+					
+					<?php
+					if(isset($_POST['update_cart'])){
+						$productIDs = "SELECT `p_id` FROM `cart` WHERE `ip_add` = '$ip'";
+						
+						$run_prodIDs = mysqli_query($con, $productIDs);
+						
+						
+						$quantity = $_POST['qty'];
+						$num = 0;
+						$total = 0;
+						while($ProductIDList=mysqli_fetch_array($run_prodIDs)) {
+							$productID = $ProductIDList['p_id'];
+							$quan = $quantity[$num];
+							$update_qty = "UPDATE `cart` SET `qty`= '$quan' where `p_id`= '$productID'";
+							$run_qty = mysqli_query($con, $update_qty);
+							$productPriceSQL = "SELECT `product_price` FROM products WHERE product_id = '$productID'";
+							$run_productPrice = mysqli_query($con, $productPriceSQL);
+							$productPrice = mysqli_fetch_assoc($run_productPrice);
+							
+							$total += $productPrice['product_price']*$quan; 
+							$num++;
+							$_SESSION['total_record']=$total;
+						}
+							
+				         } ?>
 				<tr>
 						<td colspan="4" align="right"><b>Sub Total:</b></td>
-						<td><?php echo "$" . $total;?></td>
+						<td><?php echo "$" . $_SESSION['total_record'];?></td>
 					</tr>
 					
 					<tr align="center">
@@ -199,6 +241,9 @@ include("includes/db.php");
 		$ip = getIp();
 		
 		if(isset($_POST['update_cart'])){
+			//refresh the cart page
+			echo "<script>window.open('cart.php','_self')</script>";
+			
 		
 			foreach($_POST['remove'] as $remove_id){
 			

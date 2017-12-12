@@ -21,6 +21,14 @@ include("functions/functions.php");
 		<div class="header_wrapper">
 		
 			<a href="index.php"><img id="logo" src="images/logo.png" /> </a>
+			<div id="form">
+				<form method="get" action="results.php" enctype="multipart/form-data">
+					<input type="text" name="user_query" placeholder="Search a Product"/ > 
+					<input type="submit" name="search" value="Search" />
+				</form>
+			
+			</div>
+			
 		</div>
 		<!--Header ends here-->
 		
@@ -30,7 +38,7 @@ include("functions/functions.php");
 			<ul id="menu">
 				<li><a href="index.php">Home</a></li>
 				<li><a href="all_products.php">All Products</a></li>
-				<li><a href="customer/my_account.php">My Account</a></li>
+				<li><a href="my_account.php">My Account</a></li>
 				<li><a href="customer_register.php">Sign Up</a></li>
 				<li><a href="cart.php">Shopping Carts</a></li>
 				<li><a href="wish.php">Wish List</a></li>
@@ -38,14 +46,6 @@ include("functions/functions.php");
 				<li><a href="#">Contact Us</a></li>
 			
 			</ul>
-			
-			<div id="form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" placeholder="Search a Product"/ > 
-					<input type="submit" name="search" value="Search" />
-				</form>
-			
-			</div>
 			
 		</div>
 		<!--Navigation Bar ends-->

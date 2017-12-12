@@ -21,6 +21,12 @@ include("includes/db.php");
 		<div class="header_wrapper">
 		
 			<a href="index.php"><img id="logo" src="images/logo.png" /> </a>
+			<div id="form">
+			<form method="get" action="results.php" enctype="mutlpart/form-data">
+				<input type="text" name="user_query" placeholder="Search for a Product"/>
+				<input type="submit" name="search" value="Search"/>
+			</form>
+		</div><!--end of form div-->
 		</div>
 		<!--Header ends here-->
 		
@@ -33,17 +39,11 @@ include("includes/db.php");
 				<li><a href="my_account.php">My Account</a></li>
 				<li><a href="customer_register.php">Sign Up</a></li>
 				<li><a href="cart.php">Shopping Cart</a></li>
+				<li><a href="wish.php">Wish List</a></li>
+				<li><a href="friends.php">Find Friends</a></li>
 				<li><a href="#">Contact Us</a></li>
 			
 			</ul>
-			
-			<div id="form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" placeholder="Search a Product"/ > 
-					<input type="submit" name="search" value="Search" />
-				</form>
-			
-			</div>
 			
 		</div>
 		<!--Navigation Bar ends-->
@@ -80,7 +80,8 @@ include("includes/db.php");
 					
 					<span style="float:right; font-size:18px; padding:5px; line-height:40px;">
 					
-					Welcome Guest! <b style="color:yellow">Shopping Cart -</b> Total Items: <?php total_items();?> Total Price: <?php total_price(); ?> <a href="cart.php" style="color:yellow">Go to Cart</a>
+					Welcome Guest! <b style="color:black">Shopping Cart -</b> Total Items: <?php total_items();?> Total Price: <?php total_price(); ?> 
+					<a href="cart.php" style="color:orange">Go to Cart</a>
 					
 					</span>
 			</div>

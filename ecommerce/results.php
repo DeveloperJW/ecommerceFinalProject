@@ -103,19 +103,29 @@ include("functions/functions.php");
 	if(isset($_GET['search'])){
 	
 	$search_query=$_GET['user_query'];
-	//search using product_keywords
-	$get_pro = "select * from products where product_keywords like '%$search_query%'";
+	//find respective KeyValue
+	$get_key_value = "SELECT `KeyValue` from `Keyword` where `key` like '%$search_query%'";
+	$run_get_key_value = mysqli_query($con, $get_key_value);
+	$row_keyValue = mysqli_fetch_assoc($run_get_key_value);
+	$key_Value = $row_keyValue['KeyValue'];
+	
+	//Use KeyValue to find productIDs	
+	
+	$get_ProductIDs = "SELECT `Product_ID` FROM `ProductKey` WHERE `Key_Value` = '$key_Value'";	
 
-	$run_pro = mysqli_query($con, $get_pro); 
+	$run_pro = mysqli_query($con, $get_ProductIDs); 
 	
-	while($row_pro=mysqli_fetch_array($run_pro)){
-	
-		$pro_id = $row_pro['product_id'];
-		$pro_cat = $row_pro['product_cat'];
-		$pro_brand = $row_pro['product_brand'];
-		$pro_title = $row_pro['product_title'];
-		$pro_price = $row_pro['product_price'];
-		$pro_image = $row_pro['product_image'];
+	while($row_proID=mysqli_fetch_array($run_pro)){
+		$row_productID = $row_proID['Product_ID'];
+		$PROsql = "SELECT * FROM `products` where `product_id` = '$row_productID'";
+		$runPROsql = mysqli_query($con, $PROsql);
+		$row_pro = mysqli_fetch_array($runPROsql);
+		$pro_id = $row_pro["product_id"];
+		$pro_cat = $row_pro["product_cat"];
+		$pro_brand = $row_pro["product_brand"];
+		$pro_title = $row_pro["product_title"];
+		$pro_price = $row_pro["product_price"];
+		$pro_image = $row_pro["product_image"];
 	
 		echo "
 				<div id='single_product'>
@@ -124,7 +134,7 @@ include("functions/functions.php");
 					
 					<img src='admin_area/product_images/$pro_image' width='180' height='180' />
 					
-					<p><b> $ $pro_price </b></p>
+					<p><b>$$pro_price</b></p>
 					
 					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 					
@@ -135,7 +145,7 @@ include("functions/functions.php");
 		
 		";
 	
-	}
+		}
 	}
 	?>
 				

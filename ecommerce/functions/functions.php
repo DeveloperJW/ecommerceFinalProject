@@ -243,7 +243,7 @@ function getPro(){
 		$pro_image = $row_cat_pro['product_image'];
 	
 		echo "
-				<div id='single_product'>
+		<div id='single_product'>
 				
 					<h3>$pro_title</h3>
 					

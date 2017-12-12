@@ -24,6 +24,12 @@ include("includes/db.php");
 		<div class="header_wrapper">
 		
 			<a href="index.php"><img id="logo" src="images/logo.png" /> </a>
+			<div id="form">
+			<form method="get" action="results.php" enctype="mutlpart/form-data">
+				<input type="text" name="user_query" placeholder="Search for a Product"/>
+				<input type="submit" name="search" value="Search"/>
+			</form>
+		</div><!--end of form div-->
 		</div>
 		<!--Header ends here-->
 		
@@ -41,14 +47,6 @@ include("includes/db.php");
 				<li><a href="#">Contact Us</a></li>
 			
 			</ul>
-			
-			<div id="form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" placeholder="Search a Product"/ > 
-					<input type="submit" name="search" value="Search" />
-				</form>
-			
-			</div>
 			
 		</div>
 		<!--Navigation Bar ends-->
@@ -87,14 +85,14 @@ include("includes/db.php");
 					
 					<?php 
 					if(isset($_SESSION['customer_email'])){
-					echo "<b>Welcome:</b>" . $_SESSION['customer_email'] . "<b style='color:yellow;'>Your</b>" ;
+					echo "<b>Welcome:</b>" . $_SESSION['customer_email'];
 					}
 					else {
 					echo "<b>Welcome Guest:</b>";
 					}
 					?>
 					
-					<b style="color:yellow">Shopping Cart -</b> Total Items: <?php total_items();?> Total Price: <?php total_price(); ?> <a href="index.php" style="color:yellow">Back to Shop</a>
+					<b style="color:black">Shopping Cart -</b> Total Items: <?php total_items();?> Total Price: <?php total_price(); ?> <a href="index.php" style="color:orange">Back to Shop</a>
 					
 					<?php 
 					if(!isset($_SESSION['customer_email'])){
@@ -117,13 +115,12 @@ include("includes/db.php");
 				
 			<form action="" method="post" enctype="multipart/form-data">
 			
-				<table align="center" width="700" bgcolor="skyblue">
+				<table align="center" width="700" bgcolor="white">
 					<h2>This is your own wish list</h2>
 					<tr align="center">
 						<th>Remove</th>
 						<th>Product(S)</th>
-						<th>Quantity</th>
-						<th>Total Price</th>
+						<th>Product Price</th>
 					</tr>
 					
 		<?php
@@ -152,22 +149,6 @@ include("includes/db.php");
 					<td><?php echo $product_title; ?><br>
 					<img src="admin_area/product_images/<?php echo $product_image;?>" width="60" height="60"/>
 					</td>
-					<td><input type="text" size="4" name="qty" value="<?php echo $_SESSION['qty'];?>"/></td>
-					<?php 
-					if(isset($_POST['update_cart'])){
-						
-						$qty = $_POST['qty'];
-							
-						$update_qty = "update wish set qty='$qty'";
-							
-						$run_qty = mysqli_query($con, $update_qty); 
-						//keep the quantity in the quantity box, we need to use _session
-						$_SESSION['qty']=$qty;
-						$total = $total*$qty;
-						}
-						
-						
-					?>
 								
 					<td><?php echo "$" . $single_price; ?></td>
 				</tr>

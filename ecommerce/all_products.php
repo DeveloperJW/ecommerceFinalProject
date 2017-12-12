@@ -21,6 +21,14 @@ include("functions/functions.php");
 		<div class="header_wrapper">
 		
 			<a href="index.php"><img id="logo" src="images/logo.png" /> </a>
+			<div id="form">
+				<form method="get" action="results.php" enctype="multipart/form-data">
+					<input type="text" name="user_query" placeholder="Search a Product"/ > 
+					<input type="submit" name="search" value="Search" />
+				</form>
+			
+			</div>
+			
 		</div>
 		<!--Header ends here-->
 		
@@ -32,18 +40,12 @@ include("functions/functions.php");
 				<li><a href="all_products.php">All Products</a></li>
 				<li><a href="my_account.php">My Account</a></li>
 				<li><a href="customer_register.php">Sign Up</a></li>
-				<li><a href="cart.php">Shopping Cart</a></li>
+				<li><a href="cart.php">Shopping Carts</a></li>
+				<li><a href="wish.php">Wish List</a></li>
+				<li><a href="friends.php">Find Friends</a></li>
 				<li><a href="#">Contact Us</a></li>
 			
 			</ul>
-			
-			<div id="form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-					<input type="text" name="user_query" placeholder="Search a Product"/ > 
-					<input type="submit" name="search" value="Search" />
-				</form>
-			
-			</div>
 			
 		</div>
 		<!--Navigation Bar ends-->
@@ -77,10 +79,10 @@ include("functions/functions.php");
 			<div id="shopping_cart"> 
 			<span style="float:right; font-size:18px; padding:5px; line-height:40px;">
 				Check all products we have!
-				<b style="color:yellow">Shopping Cart -</b> 
+				<b style="color:black">Shopping Cart -</b> 
 				Total Items: <?php total_items()?> 
 				Total Price: <?php total_price()?>
-				<a href="cart.php" style="color:yellow">Go to Cart</a>
+				<a href="cart.php" style="color:orange">Go to Cart</a>
 			</span>
 			</div>
 			
@@ -110,15 +112,46 @@ include("functions/functions.php");
 					
 					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 					
-					<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
+					<a href='all_products.php?add_cart=$pro_id'><button style='float:right'>Add to Cart</button></a>
+					<br>
+					<a href='index.php?add_wish=$pro_id'><button style='float:right'>Add to Wish List</button></a>
 				
 				</div>
 		
 		
 		";
 	
-	}
+		}
 	?>
+	<?php
+	function cart2(){
+	if(isset($_GET['add_cart'])){
+	global $con; 
+	$ip = getIp();
+	$pro_id = $_GET['add_cart'];
+	//check if the product is already in cart already
+	//handle duplicate orders
+	$check_pro = "select * from cart where ip_add='$ip' AND p_id='$pro_id'";
+	
+	$run_check = mysqli_query($con, $check_pro); 
+	
+	if(mysqli_num_rows($run_check)>0){
+
+	echo "";
+	
+	}
+	else {
+	
+	$insert_pro = "insert into cart (p_id,ip_add) values ('$pro_id','$ip')";
+	
+	$run_pro = mysqli_query($con, $insert_pro); 
+	
+	echo "<script>window.open('all_products.php','_self')</script>";
+		}
+	}
+}
+	?>
+	<?php cart2()?>
 				
 				</div>
 			
